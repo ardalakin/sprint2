@@ -1,0 +1,286 @@
+/* Erol Arda Akın — 2311012038 */
+
+:root {
+  --no: 2311012038;
+  --ton: 318;
+
+  --renk-ana: hsl(var(--ton) 65% 38%);
+  --renk-ana-koyu: hsl(var(--ton) 65% 28%);
+  --renk-zemin: hsl(var(--ton) 30% 97%);
+  --renk-yazi: #222;
+  --renk-ikincil-yazi: #555;
+  --renk-kenarlik: #ddd;
+  --renk-kart: #fff;
+  --renk-hata: #b42318;
+
+  --font: system-ui, sans-serif;
+  --bosluk-xs: 0.5rem;
+  --bosluk-m: 1rem;
+  --bosluk-l: 1.5rem;
+  --kose: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  color: var(--renk-yazi);
+  background: var(--renk-zemin);
+  font-family: var(--font);
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--renk-ana);
+}
+
+a:hover {
+  color: var(--renk-ana-koyu);
+}
+
+.site-header,
+main,
+.site-footer {
+  width: min(100% - 2rem, 1100px);
+  margin-inline: auto;
+}
+
+.site-header {
+  padding-block: var(--bosluk-m);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--bosluk-m);
+}
+
+.site-title {
+  margin: 0;
+  color: var(--renk-ana);
+  font-size: 1.6rem;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.site-nav a {
+  padding: 0.35rem 0;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+main {
+  padding-block: var(--bosluk-l) 3rem;
+}
+
+.page-title {
+  margin-top: 0;
+  margin-bottom: var(--bosluk-m);
+}
+
+.intro {
+  max-width: 65ch;
+  color: var(--renk-ikincil-yazi);
+}
+
+.button,
+button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: var(--kose);
+  background: var(--renk-ana);
+  color: #fff;
+  font: inherit;
+  font-weight: 650;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover,
+button:hover {
+  background: var(--renk-ana-koyu);
+  color: #fff;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--bosluk-m);
+}
+
+.event-card {
+  min-width: 0;
+  padding: var(--bosluk-m);
+  border: 1px solid var(--renk-kenarlik);
+  border-radius: var(--kose);
+  background: var(--renk-kart);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
+}
+
+.event-card h2,
+.event-card h3 {
+  margin-top: 0;
+  margin-bottom: var(--bosluk-xs);
+  color: var(--renk-ana);
+}
+
+.event-card p {
+  color: var(--renk-ikincil-yazi);
+}
+
+.event-card .button {
+  margin-top: var(--bosluk-xs);
+}
+
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--bosluk-l);
+}
+
+.poster {
+  margin: 0;
+}
+
+.poster img {
+  width: 100%;
+  border-radius: var(--kose);
+  background: #eee;
+  object-fit: cover;
+}
+
+.poster figcaption {
+  margin-top: var(--bosluk-xs);
+  color: var(--renk-ikincil-yazi);
+  font-size: 0.9rem;
+}
+
+.event-info {
+  margin: 0 0 var(--bosluk-m);
+}
+
+.event-info div {
+  display: grid;
+  grid-template-columns: minmax(6rem, max-content) 1fr;
+  gap: 0.25rem 1rem;
+  padding-block: 0.5rem;
+  border-bottom: 1px solid var(--renk-kenarlik);
+}
+
+.event-info dt {
+  font-weight: 700;
+}
+
+.event-info dd {
+  margin: 0;
+}
+
+.form {
+  max-width: 680px;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: var(--bosluk-m);
+}
+
+.form-field label {
+  font-weight: 650;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #999;
+  border-radius: var(--kose);
+  background: #fff;
+  color: var(--renk-yazi);
+  font: inherit;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid hsl(var(--ton) 80% 75%);
+  outline-offset: 2px;
+}
+
+input:invalid:not(:focus),
+select:invalid:not(:focus),
+textarea:invalid:not(:focus) {
+  border-color: var(--renk-hata);
+}
+
+.form-hint {
+  margin: 0;
+  color: var(--renk-ikincil-yazi);
+  font-size: 0.9rem;
+}
+
+.site-footer {
+  padding-block: var(--bosluk-m);
+  border-top: 1px solid var(--renk-kenarlik);
+  color: var(--renk-ikincil-yazi);
+}
+
+@media (max-width: 700px) {
+  .site-header,
+  main,
+  .site-footer {
+    width: min(100% - 1.25rem, 1100px);
+  }
+
+  .site-header-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .event-grid,
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .site-nav {
+    gap: 0.25rem 0.85rem;
+  }
+
+  .event-info div {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

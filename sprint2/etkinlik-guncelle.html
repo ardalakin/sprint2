@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Etkinlik Güncelle | Kampüs Etkinlikleri</title>
+  <link rel="stylesheet" href="css/2311012038.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="site-title" href="index.html">Kampüs Etkinlikleri</a>
+
+      <nav class="site-nav" aria-label="Ana menü">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="etkinlikler.html">Etkinlikler</a>
+        <a href="etkinlik-ekle.html">Ekle</a>
+        <a href="etkinlik-guncelle.html" aria-current="page">Güncelle</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">Etkinlik Güncelle</h1>
+
+    <form class="form" action="#" method="post">
+      <div class="form-field">
+        <label for="ad">Etkinlik adı</label>
+        <input
+          id="ad"
+          name="ad"
+          type="text"
+          value="Kariyer Günleri 2026"
+          required>
+      </div>
+
+      <div class="form-field">
+        <label for="kategori">Kategori</label>
+        <select id="kategori" name="kategori" required>
+          <option value="">Seçiniz</option>
+          <option value="seminer" selected>Seminer</option>
+          <option value="atolye">Atölye</option>
+          <option value="soylesi">Söyleşi</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="tarih">Tarih</label>
+        <input
+          id="tarih"
+          name="tarih"
+          type="date"
+          value="2026-10-12"
+          required>
+      </div>
+
+      <div class="form-field">
+        <label for="yer">Yer</label>
+        <input
+          id="yer"
+          name="yer"
+          type="text"
+          value="A Blok Salon"
+          required>
+      </div>
+
+      <div class="form-field">
+        <label for="kontenjan">Kontenjan</label>
+        <input
+          id="kontenjan"
+          name="kontenjan"
+          type="number"
+          min="1"
+          value="120"
+          required>
+      </div>
+
+      <div class="form-field">
+        <label for="aciklama">Açıklama</label>
+        <textarea
+          id="aciklama"
+          name="aciklama"
+          required>Mezun söyleşileri</textarea>
+      </div>
+
+      <button type="submit">Güncelle</button>
+    </form>
+  </main>
+
+  <footer class="site-footer">
+    <p>Kampüs Etkinlikleri</p>
+  </footer>
+</body>
+</html>
