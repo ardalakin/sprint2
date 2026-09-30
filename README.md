@@ -1,4 +1,4 @@
-# Kampüs Etkinlikleri — Sprint 1
+# Kampüs Etkinlikleri — Sprint 2
 
 Yalnızca HTML kullanılarak hazırlanmış kampüs etkinlikleri sitesi.
 
