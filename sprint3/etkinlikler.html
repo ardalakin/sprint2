@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tüm Etkinlikler | Kampüs Etkinlikleri</title>
+  <link rel="stylesheet" href="css/2311012038.css">
+  <script type="module" src="js/event-list.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <h1 class="site-heading">Tüm Etkinlikler</h1>
+      <p class="site-subtitle">Ekim ayında kampüste düzenlenen etkinlikler.</p>
+      <nav class="site-nav" aria-label="Ana menü">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="etkinlikler.html" aria-current="page">Etkinlikler</a>
+        <a href="etkinlik-ekle.html">Ekle</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <form id="filtre-formu" class="filtre">
+      <div class="form-field">
+        <label for="arama">Etkinlik ara</label>
+        <input id="arama" type="search" placeholder="Örn. atölye, kariyer">
+      </div>
+      <div class="form-field">
+        <label for="kategori-filtre">Kategori</label>
+        <select id="kategori-filtre"><option value="">Tümü</option></select>
+      </div>
+    </form>
+    <p id="sonuc" class="sonuc-satiri" aria-live="polite"></p>
+    <section id="etkinlik-listesi" class="event-grid" aria-label="Etkinlik sonuçları"></section>
+  </main>
+  <footer class="site-footer"><p>Erol Arda Akın · 2311012038 · 2026</p></footer>
+</body>
+</html>

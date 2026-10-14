@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Etkinlik Ekle | Kampüs Etkinlikleri</title>
+  <link rel="stylesheet" href="css/2311012038.css">
+  <script type="module" src="js/event-form.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <h1 class="site-heading">Etkinlik Ekle</h1>
+      <nav class="site-nav" aria-label="Ana menü">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="etkinlikler.html">Etkinlikler</a>
+        <a href="etkinlik-ekle.html" aria-current="page">Ekle</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <p class="form-intro">Yıldızlı (*) alanlar zorunludur. Bu sprintte form veri kaydetmez; sonuç aşağıda gösterilir.</p>
+    <form id="etkinlik-formu" class="form" data-mode="ekle" novalidate>
+      <div class="form-field">
+        <label for="ad">Etkinlik Adı *</label>
+        <input id="ad" name="ad" type="text" placeholder="Örn. Girişimcilik Söyleşisi" aria-describedby="ad-hata">
+        <span id="ad-hata" class="field-error"></span>
+      </div>
+      <div class="form-field">
+        <label for="kategori">Kategori *</label>
+        <select id="kategori" name="kategori" aria-describedby="kategori-hata">
+          <option value="">Seçiniz</option>
+          <option value="Seminer">Seminer</option>
+          <option value="Atölye">Atölye</option>
+          <option value="Söyleşi">Söyleşi</option>
+        </select>
+        <span id="kategori-hata" class="field-error"></span>
+      </div>
+      <div class="form-field">
+        <label for="tarih">Tarih *</label>
+        <input id="tarih" name="tarih" type="date" aria-describedby="tarih-hata">
+        <span id="tarih-hata" class="field-error"></span>
+      </div>
+      <div class="form-field">
+        <label for="saat">Saat *</label>
+        <input id="saat" name="saat" type="time" aria-describedby="saat-hata">
+        <span id="saat-hata" class="field-error"></span>
+      </div>
+      <div class="form-field">
+        <label for="yer">Yer *</label>
+        <input id="yer" name="yer" type="text" placeholder="Örn. A Blok Konferans Salonu" aria-describedby="yer-hata">
+        <span id="yer-hata" class="field-error"></span>
+      </div>
+      <div class="form-field">
+        <label for="kontenjan">Kontenjan</label>
+        <input id="kontenjan" name="kontenjan" type="number" min="1" max="1000" aria-describedby="kontenjan-hata">
+        <span id="kontenjan-hata" class="field-error"></span>
+      </div>
+      <div class="form-field">
+        <label for="aciklama">Açıklama</label>
+        <textarea id="aciklama" name="aciklama"></textarea>
+      </div>
+      <button type="submit">Kaydet</button>
+    </form>
+    <div id="form-mesaj" class="message" role="status" aria-live="polite" hidden></div>
+  </main>
+  <footer class="site-footer"><p>Erol Arda Akın · 2311012038 · 2026</p></footer>
+</body>
+</html>
