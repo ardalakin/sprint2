@@ -83,7 +83,8 @@ main {
   flex: 1;
   padding: 1.6rem 0 3rem;
 }
-.page-title { margin: 0 0 1rem; font-size: clamp(1.8rem, 3.2vw, 2.4rem); }
+.page-title,
+.bolum-baslik { margin: 0 0 1rem; font-size: clamp(1.8rem, 3.2vw, 2.4rem); }
 .intro { max-width: 70ch; color: var(--renk-ikincil-yazi); }
 
 .event-grid {
@@ -124,6 +125,7 @@ main {
 }
 
 .button,
+.buton,
 button {
   display: inline-flex;
   min-height: 46px;
@@ -141,6 +143,7 @@ button {
   cursor: pointer;
 }
 .button:hover,
+.buton:hover,
 button:hover { background: var(--renk-ana-koyu); color: #fff; }
 .more-link { margin-top: 1.1rem; }
 
@@ -244,15 +247,18 @@ button:focus-visible {
   border: 3px solid var(--renk-hata);
   background: var(--renk-hata-zemin);
 }
-.message {
+.message,
+.mesaj {
   width: min(100%, 680px);
   margin-top: 1rem;
   padding: 1.05rem 1.2rem;
   border: 3px solid;
   border-radius: var(--kose);
 }
-.message-error { border-color: var(--renk-hata); background: var(--renk-hata-zemin); color: var(--renk-hata); }
-.message-success { border-color: var(--renk-basarili); background: var(--renk-basarili-zemin); color: var(--renk-basarili); }
+.message-error,
+.mesaj-hata { border-color: var(--renk-hata); background: var(--renk-hata-zemin); color: var(--renk-hata); }
+.message-success,
+.mesaj-basari { border-color: var(--renk-basarili); background: var(--renk-basarili-zemin); color: var(--renk-basarili); }
 .message p { margin: 0 0 0.65rem; }
 .message pre {
   overflow-x: auto;
@@ -261,6 +267,50 @@ button:focus-visible {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+.hata-metni,
+.field-error {
+  display: block;
+  min-height: 1.4em;
+  color: var(--renk-hata);
+  font-weight: 600;
+}
+.auth-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.admin-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.admin-heading .page-title,
+.admin-heading .intro { margin-bottom: 0; }
+.table-wrapper { width: 100%; overflow-x: auto; }
+.tablo {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--renk-kart);
+}
+.tablo th,
+.tablo td {
+  padding: 0.8rem;
+  border: 1px solid var(--renk-kenarlik);
+  text-align: left;
+  vertical-align: middle;
+}
+.tablo th { background: var(--renk-ana); color: #fff; }
+.islemler { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.button-small,
+.buton-small { min-height: 40px; padding: 0.4rem 0.8rem; }
+.button-sil,
+.buton-sil { background: var(--renk-hata); }
+.button-sil:hover,
+.buton-sil:hover { background: #a62028; }
 .site-footer {
   width: 100%;
   padding: 1.8rem 1rem;
@@ -298,4 +348,27 @@ button:focus-visible {
   textarea { min-height: 170px; }
   button { min-height: 56px; min-width: 170px; }
   .message { padding: 1rem; }
+  .admin-heading { align-items: stretch; }
+  .admin-heading > .button { width: 100%; }
+  .tablo thead { display: none; }
+  .tablo,
+  .tablo tbody,
+  .tablo tr,
+  .tablo td { display: block; width: 100%; }
+  .tablo tr {
+    margin-bottom: 0.85rem;
+    overflow: hidden;
+    border: 1px solid var(--renk-kenarlik);
+    border-radius: var(--kose);
+    background: var(--renk-kart);
+  }
+  .tablo td { border: 0; border-bottom: 1px solid var(--renk-kenarlik); }
+  .tablo td:last-child { border-bottom: 0; }
+  .tablo td[data-baslik]::before {
+    content: attr(data-baslik) ": ";
+    font-weight: 700;
+  }
+  .tablo td.islemler { display: flex; flex-wrap: wrap; }
+  .tablo td.islemler::before { flex-basis: 100%; }
+  .tablo .button-small { flex: 1 1 7rem; }
 }

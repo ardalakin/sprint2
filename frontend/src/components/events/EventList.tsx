@@ -3,13 +3,11 @@ import EventCard from "./EventCard";
 
 interface EventListProps {
   events: CampusEvent[];
-  onShowDetail: (id: string) => void;
   emptyText?: string;
 }
 
 export default function EventList({
   events,
-  onShowDetail,
   emptyText,
 }: EventListProps) {
   if (events.length === 0) {
@@ -26,7 +24,6 @@ export default function EventList({
         <EventCard
           key={event.id}
           event={event}
-          onShowDetail={onShowDetail}
         />
       ))}
     </section>

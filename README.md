@@ -1,29 +1,44 @@
-[Canlı site](https://sprint2-sprint2.vercel.app/)
+# Kampüs Etkinlikleri — Sprint 6 ve Vize
 
-# Kampüs Etkinlikleri — Sprint 5
+React, TypeScript ve Vite ile hazırlanmış kampüs etkinlikleri uygulaması. Etkinlikleri listeler, arar ve kategoriye göre süzer; detay ve yönetim sayfaları sunar. Ekleme, güncelleme ve silme işlemleri Context üzerinden uygulama açıkken sayfalar arasında paylaşılır. Veriler bellekte tutulur ve sayfa yenilendiğinde örnek verilere döner. Giriş, kayıt ve şifre yenileme ekranları doğrulama demosudur; bilgiler hiçbir yere gönderilmez.
 
-React ve TypeScript ile hazırlanan kampüs etkinlikleri uygulaması. Sprint 5, Sprint 4'teki ekranları aynı tutarak arayüzü yeniden kullanılabilir bileşenlere ayırır.
+**Canlı adres:** [https://sprint2-sprint2.vercel.app/](https://sprint2-sprint2.vercel.app/)  
+*(Vercel domain ayarlarından eklenen özel domain: `https://erolardaakin-frontend.vercel.app`)*
 
-## Dosyalar
+## Kurulum ve çalıştırma
 
-- frontend/src/App.tsx sayfa durumunu ve bileşenler arasındaki veriyi yönetir.
-- frontend/src/components/layout/ Header, menü ve alt bilgi bileşenlerini içerir.
-- frontend/src/components/events/ Etkinlik kartı, listesi, filtresi ve detay bileşenlerini içerir.
-- frontend/src/components/forms/EventForm.tsx ekleme ve güncelleme formunu içerir.
-- frontend/src/types/page.ts ekran adları için PageName türünü tanımlar.
-- frontend/src/types/campus-event.ts etkinlik alanlarını ve kategori türünü tanımlar.
-- frontend/src/data/events.ts tipli altı etkinlik kaydını tutar.
-- frontend/src/utils/filter-events.ts arama, kategori filtreleme ve kimliğe göre bulma işlevlerini sağlar.
-- frontend/src/utils/format-date.ts etkinlik tarihlerini Türkçe biçimde gösterir.
-- frontend/src/App.css Sprint 4'teki görünümü ve responsive düzeni korur.
-- frontend/public/images.png Kariyer Günleri detayında kullanılan üniversite amblemidir.
+frontend klasöründe:
 
-## Yerel çalıştırma
+    npm install
+    npm run dev
 
-PowerShell'de:
+Üretim derlemesini kontrol etmek için:
 
-cd frontend
-npm.cmd run dev
-npm.cmd run build
+    npm run build
 
-Komut İstemi'nde npm run dev ve npm run build komutları kullanılabilir.
+## Sayfalar ve rotalar
+
+| Adres | Sayfa |
+| --- | --- |
+| / | Ana sayfa |
+| /events | Etkinlik listesi, arama ve filtreleme |
+| /events/:id | Etkinlik ayrıntısı |
+| /admin | Etkinlik yönetimi |
+| /admin/new | Etkinlik ekleme |
+| /admin/:id/edit | Etkinlik güncelleme |
+| /login | Giriş doğrulama demosu |
+| /register | Kayıt doğrulama demosu |
+| /forgot-password | Şifre yenileme demosu |
+| * | Bulunamayan adres sayfası |
+
+## Önemli dosyalar
+
+- frontend/src/App.tsx: Router rotalarını ve ortak sayfa kabuğunu tanımlar.
+- frontend/src/main.tsx: BrowserRouter ve EventsProvider ile uygulamayı başlatır.
+- frontend/src/context/EventsContext.tsx: Etkinlik listesini ve ekle/güncelle/sil işlemlerini paylaşır.
+- frontend/src/pages/: Her rota için sayfa bileşenlerini içerir.
+- frontend/src/components/: Ortak görünüm, etkinlik ve form bileşenlerini içerir.
+- frontend/src/utils/validate-event.ts: Etkinlik formu doğrulama kurallarını uygular.
+- frontend/vercel.json: Vercel'de alt rotaların doğrudan açılmasını sağlar.
+
+GitHub'a gönderme ve Vercel dağıtımını güncelleme proje sahibinin teslim adımlarıdır.

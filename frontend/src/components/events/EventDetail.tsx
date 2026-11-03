@@ -1,17 +1,12 @@
 import type { CampusEvent } from "../../types/campus-event";
 import { formatDate } from "../../utils/format-date";
+import { Link } from "react-router-dom";
 
 interface EventDetailProps {
   event: CampusEvent;
-  onBack: () => void;
-  onEdit: (id: string) => void;
 }
 
-export default function EventDetail({
-  event,
-  onBack,
-  onEdit,
-}: EventDetailProps) {
+export default function EventDetail({ event }: EventDetailProps) {
   return (
     <section
       className={"detail-layout " + (event.image ? "has-poster" : "no-poster")}
@@ -59,16 +54,12 @@ export default function EventDetail({
         <p>{event.description}</p>
       </section>
       <div className="detail-actions">
-        <button className="button" type="button" onClick={onBack}>
+        <Link className="button" to="/events">
           ← Listeye dön
-        </button>
-        <button
-          className="button"
-          type="button"
-          onClick={() => onEdit(event.id)}
-        >
+        </Link>
+        <Link className="button" to={`/admin/${event.id}/edit`}>
           Bu etkinliği güncelle
-        </button>
+        </Link>
       </div>
     </section>
   );
