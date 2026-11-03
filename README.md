@@ -17,8 +17,7 @@ React, TypeScript ve Vite ile modern bir tek sayfa uygulaması (SPA) olarak geli
 | :--- | :--- |
 | **Öğrenci Adı Soyadı** | **Erol Arda Akın** |
 | **Öğrenci Numarası** | **2311012038** |
-| **Canlı Vercel Adresi** | [https://sprint2-sprint2.vercel.app/](https://sprint2-sprint2.vercel.app/) |
-| **Özel Alan Adı (Alias)** | `https://erolardaakin-frontend.vercel.app` |
+| **Canlı Vercel Adresi** | [https://erolardaakin-frontend.vercel.app/](https://erolardaakin-frontend.vercel.app/) |
 | **GitHub Deposu** | [https://github.com/ardalakin/sprint2](https://github.com/ardalakin/sprint2) |
 | **Git Tag** | `frontend` |
 
