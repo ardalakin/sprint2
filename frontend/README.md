@@ -3,7 +3,8 @@
 React, TypeScript ve Vite ile hazırlanmış kampüs etkinlikleri uygulaması. Etkinlikleri listeler, arar ve kategoriye göre süzer; detay ve yönetim sayfaları sunar. Ekleme, güncelleme ve silme işlemleri Context üzerinden uygulama açıkken sayfalar arasında paylaşılır. Veriler bellekte tutulur ve sayfa yenilendiğinde örnek verilere döner. Giriş, kayıt ve şifre yenileme ekranları doğrulama demosudur; bilgiler hiçbir yere gönderilmez.
 
 **Canlı adres:** [https://sprint2-sprint2.vercel.app/](https://sprint2-sprint2.vercel.app/)  
-*(Vercel domain ayarlarından eklenen özel domain: `https://erolardaakin-frontend.vercel.app`)*
+*(Vercel domain ayarlarından eklenen özel domain: `https://erolardaakin-frontend.vercel.app`)*  
+**GitHub Deposu:** [https://github.com/ardalakin/sprint2](https://github.com/ardalakin/sprint2)
 
 ## Kurulum ve çalıştırma
 
