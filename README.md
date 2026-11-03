@@ -4,7 +4,9 @@ React, TypeScript ve Vite ile hazırlanmış kampüs etkinlikleri uygulaması. E
 
 **Canlı adres:** [https://sprint2-sprint2.vercel.app/](https://sprint2-sprint2.vercel.app/)  
 *(Vercel domain ayarlarından eklenen özel domain: `https://erolardaakin-frontend.vercel.app`)*  
-**GitHub Deposu:** [https://github.com/ardalakin/sprint2](https://github.com/ardalakin/sprint2)
+**GitHub Deposu:** [https://github.com/ardalakin/sprint2](https://github.com/ardalakin/sprint2)  
+**İsim Soyisim:** Erol Arda Akın  
+**Öğrenci Numarası:** 2311012038
 
 ## Kurulum ve çalıştırma
 
