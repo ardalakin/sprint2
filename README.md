@@ -1,13 +1,15 @@
-# 🎓 Kampüs Etkinlikleri — Sprint 6 & Vize Projesi
+# 🎓 Kampüs Etkinlikleri — Full-Stack (Sprint 7)
 
+![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-4.21-000000?logo=express&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-v2.1-FF6C37?logo=postman&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?logo=vite&logoColor=white)
 ![React Router](https://img.shields.io/badge/React_Router-7-CA4245?logo=react-router&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?logo=vercel&logoColor=white)
 ![Build](https://img.shields.io/badge/Build-Passing-success)
 
-React, TypeScript ve Vite ile modern bir tek sayfa uygulaması (SPA) olarak geliştirilmiş **Kampüs Etkinlikleri Yönetim Sistemi**. Uygulama; etkinlik listeleme, Türkçe karakter destekli arama, kategoriye göre filtreleme, detay görüntüleme, tam yönetim paneli (ekleme, güncelleme, silme) ile giriş, kayıt ve şifre yenileme demo akışlarını içerir.
+Bu depo, **Kampüs Etkinlikleri Yönetim Sistemi**'nin hem modern React (SPA) frontend arayüzünü hem de **Sprint 7** kapsamında geliştirilen **Node.js + Express tabanlı REST API backend** mimarisini bir arada barındıran tam yığın (full-stack) projesidir.
 
 ---
 
@@ -17,44 +19,83 @@ React, TypeScript ve Vite ile modern bir tek sayfa uygulaması (SPA) olarak geli
 | :--- | :--- |
 | **Öğrenci Adı Soyadı** | **Erol Arda Akın** |
 | **Öğrenci Numarası** | **2311012038** |
+| **Sprint** | **Sprint 7 — Backend REST API & Mimari Kurulumu** |
 | **Canlı Vercel Adresi** | [https://erolardaakin-frontend.vercel.app/](https://erolardaakin-frontend.vercel.app/) |
 | **GitHub Deposu** | [https://github.com/ardalakin/sprint2](https://github.com/ardalakin/sprint2) |
-| **Git Tag** | `frontend` |
+| **Backend API URL** | `http://localhost:3000` |
 
 ---
 
-## 🚀 Öne Çıkan Özellikler
+## 🚀 Sprint 7: Backend REST API Özellikleri
 
-- **🌐 Tam React Router Entegrasyonu:** `BrowserRouter`, `Routes`, `Route`, `Link`, `NavLink` ve `useNavigate` ile 10 farklı rota arasında kesintisiz geçiş.
-- **⚡ Merkezi Durum Yönetimi (Context API):** `EventsContext` üzerinden tüm etkinlikler merkezi olarak yönetilir; yeni etkinlik ekleme, güncelleme veya silme işlemleri anında tüm sayfalara (Ana Sayfa, Liste, Detay, Yönetim) yansır.
-- **🛡️ Kusursuz Form Doğrulaması:** 
-  - **Etkinlik Formu:** 7 ayrı alanda kural doğrulaması (başlık uzunluğu, kategori seçimi, tarih/saat, yer, 1-1000 arası kontenjan, açıklama), anlık kırmızı hata bildirimleri ve `aria-invalid` erişilebilirlik desteği.
-  - **Kimlik Doğrulama:** Giriş, kayıt ve şifre yenileme ekranlarında e-posta formatı, en az 6 haneli şifre ve şifre eşleşme kontrolleri.
-- **🔍 Gelişmiş Arama & Filtreleme:** Başlık ve açıklamada Türkçe karakter duyarlı (`toLocaleLowerCase("tr-TR")`) gerçek zamanlı arama ve dinamik kategori filtresi.
-- **📱 %100 Duyarlı (Responsive) Tasarım:** Masaüstünde tam tablo olan yönetim ekranı, mobil cihazlarda (320px–700px) otomatik olarak modern kart görünümüne dönüşür.
+- **⚡ Modern ES Modülleri (ESM):** `package.json` içerisinde `"type": "module"` kullanılarak modern `import / export` standardıyla geliştirilmiştir.
+- **🧱 Katmanlı Mimari (Separation of Concerns):** Rotalar ([`src/routes/`](backend/src/routes/event-routes.js)), iş mantığı ([`src/controllers/`](backend/src/controllers/event-controller.js)) ve veri modeli ([`src/data/`](backend/src/data/events.js)) birbirinden tamamen ayrıştırılmıştır.
+- **🛡️ Güvenlik ve Ortam Değişkenleri:** Port yapılandırması `dotenv` ile `.env` dosyasından okunur; `.env.example` hazır tutulurken `.gitignore` ile gizli değişkenlerin Git'e sızması önlenmiştir.
+- **🌐 Evrensel Middleware Desteği:** 
+  - `cors()`: Frontend ve harici istemcilerden gelen çapraz kaynak isteklerini güvenle karşılar.
+  - `express.json()`: Gelen JSON istek gövdelerini (`req.body`) otomatik olarak ayrıştırır.
+- **🩺 Sağlık Kontrolü (`/health`):** Sunucu çalışma durumunu, güncel ISO zaman bilgisini ve öğrenci numarasını döndürür.
+- **💾 Bellek İçi (In-Memory) Veri Saklama:** 6 adet özgün etkinlik verisi bellek içi dizi üzerinde saklanır, filtrelenebilir, ID ile aranabilir ve yeni kayıt eklenebilir.
+- **📑 Standart Hata Yanıt Formatı:** Beklenmeyen rotalarda `404` ("Route not found"), eksik parametrelerde `400` ("title, category and date are required") ve bulunamayan kayıtlarda `404` ("Event not found") tutarlı bir JSON şeması ile iletilir.
+- **🧪 Kapsamlı Postman Test Koleksiyonu:** 6 temel test senaryosunu içeren Postman v2.1 koleksiyonu ([`backend/requests/kampus-api.json`](backend/requests/kampus-api.json)) mevcuttur.
 
 ---
 
-## 🗺️ Sayfalar ve Rota Haritası
+## 📋 REST API Sözleşmesi Tablosu
 
-| Rota | Sayfa Bileşeni | Açıklama |
-| :--- | :--- | :--- |
-| `/` | `HomePage` | Karşılama, yaklaşan 2 etkinlik ve hızlı bağlantılar |
-| `/events` | `EventsPage` | Arama çubuğu, kategori filtresi, sonuç sayacı ve etkinlik listesi |
-| `/events/:id` | `EventDetailPage` | Etkinlik detayları, poster afişi, künye ve listeye dönüş linkleri |
-| `/admin` | `AdminPage` | Etkinlik yönetim tablosu, silme onayı (`window.confirm`), düzenle ve ekle butonları |
-| `/admin/new` | `AddEventPage` | Yeni etkinlik ekleme formu |
-| `/admin/:id/edit` | `EditEventPage` | Mevcut etkinlik bilgilerini düzenleme formu |
-| `/login` | `LoginPage` | E-posta ve şifre doğrulama demosu |
-| `/register` | `RegisterPage` | Ad soyad, e-posta, şifre ve şifre tekrar kontrolü içeren kayıt demosu |
-| `/forgot-password` | `ForgotPasswordPage` | Şifre sıfırlama bağlantısı gönderim demosu |
-| `*` | `NotFoundPage` | Tanımsız adresler ve bulunamayan kayıtlar için 404 sayfası |
+| Metot | Uç Nokta (Endpoint) | Amaç | Başarılı Yanıt | Hata Yanıtı | Durum |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **GET** | `/` | API karşılama ve uç nokta rehberi | `200 OK` | — | Aktif |
+| **GET** | `/health` | Sağlık kontrolü ve öğrenci numarası | `200 OK` | — | Sprint 7 |
+| **GET** | `/events` | Etkinlik listesi (`?category=` ile süzme) | `200 OK` | — | Sprint 7 |
+| **GET** | `/events/:id` | Tekil etkinlik detayı getirme | `200 OK` | `404 Not Found` | Sprint 7 |
+| **POST** | `/events` | Yeni etkinlik oluşturma (`title`, `category`, `date`) | `201 Created` | `400 Bad Request` | Sprint 7 |
+| **PATCH** | `/events/:id` | Etkinlik bilgilerini kısmi güncelleme | `200 OK` | `400`, `404` | Sprint 9 |
+| **DELETE** | `/events/:id` | Etkinliği listeden silme | `204 No Content` | `404 Not Found` | Sprint 9 |
+
+---
+
+## ⚠️ Standart Hata Formatı
+
+Tüm hata durumlarında API tutarlı olarak aşağıdaki JSON gövdesini döner:
+
+```json
+{
+  "error": {
+    "message": "Açıklayıcı hata mesajı"
+  }
+}
+```
+
+* **Olmayan Rota:** `404 Not Found` $\rightarrow$ `{"error": {"message": "Route not found"}}`
+* **Bulunamayan Etkinlik:** `404 Not Found` $\rightarrow$ `{"error": {"message": "Event not found"}}`
+* **Eksik Alan:** `400 Bad Request` $\rightarrow$ `{"error": {"message": "title, category and date are required"}}`
 
 ---
 
 ## 🛠️ Kurulum ve Yerel Çalıştırma
 
-Proje `frontend` klasörü içerisindedir. Bağımlılıkları kurmak ve yerel geliştirme sunucusunu başlatmak için:
+### 1. Backend REST API Başlatma
+
+```bash
+# Backend dizinine geçin
+cd backend
+
+# Bağımlılıkları yükleyin (express, cors, dotenv)
+npm install
+
+# .env dosyasını oluşturun (varsayılan PORT=3000)
+cp .env.example .env
+
+# Geliştirme modunda (watch mode) başlatın
+npm run dev
+
+# Veya standart modda başlatın
+npm start
+```
+> Sunucu varsayılan olarak `http://localhost:3000` adresinde ayağa kalkar.
+
+### 2. Frontend Uygulamasını Başlatma
 
 ```bash
 # Frontend dizinine geçin
@@ -63,59 +104,73 @@ cd frontend
 # Bağımlılıkları yükleyin
 npm install
 
-# Geliştirme sunucusunu başlatın
+# Vite geliştirme sunucusunu başlatın
 npm run dev
 ```
-
-### Üretim Derlemesi ve Kontrol
-
-```bash
-# TypeScript kontrolü ve üretim derlemesi
-npm run build
-
-# Kod kalitesi denetimi (Oxlint)
-npm run lint
-```
+> Frontend varsayılan olarak `http://localhost:5173` adresinde açılır.
 
 ---
 
-## 📁 Klasör ve Dosya Yapısı (Slayt 21 Şablonu)
+## 🧪 Postman Test İstekleri (Collection)
+
+API testleri için hazırlanmış koleksiyon dosyası: [`backend/requests/kampus-api.json`](backend/requests/kampus-api.json)
+
+| No | İstek Adı | Metot | URL | Beklenen Durum |
+| :--- | :--- | :--- | :--- | :--- |
+| **1** | Health Kontrolü | `GET` | `http://localhost:3000/health` | `200 OK` |
+| **2** | Etkinlik Listesi | `GET` | `http://localhost:3000/events` | `200 OK` (6 kayıt) |
+| **3** | Tek Etkinlik Getir | `GET` | `http://localhost:3000/events/event-2` | `200 OK` |
+| **4** | Olmayan Etkinlik | `GET` | `http://localhost:3000/events/yok` | `404 Not Found` |
+| **5** | Etkinlik Oluştur | `POST` | `http://localhost:3000/events` | `201 Created` |
+| **6** | Eksik Veri Doğrulama | `POST` | `http://localhost:3000/events` | `400 Bad Request` |
+
+---
+
+## 📁 Proje Klasör Yapısı
 
 ```text
-frontend/
-├── src/
-│   ├── components/
-│   │   ├── events/       # EventCard, EventDetail, EventFilter, EventList
-│   │   ├── forms/        # EventForm (Kontrollü form ve hata gösterimleri)
-│   │   └── layout/       # Header, Navigation, Footer
-│   ├── context/          # EventsContext.tsx (Merkezi veri ve ekle/güncelle/sil)
-│   ├── data/             # events.ts (Başlangıç örnek verileri)
-│   ├── pages/            # 10 adet sayfa bileşeni (HomePage, EventsPage, AdminPage vb.)
-│   ├── types/            # campus-event.ts (Veri modelleri ve form tipleri)
-│   ├── utils/            # filter-events.ts, format-date.ts, validate-event.ts
-│   ├── App.css           # Tasarım sistemi, tema renkleri ve responsive tablo stilleri
-│   ├── App.tsx           # Rota tanımları (Routes, Route) ve ana sayfa kabuğu
-│   ├── index.css         # Temel CSS sıfırlamaları
-│   └── main.tsx          # BrowserRouter ve EventsProvider başlangıcı
-├── vercel.json           # Vercel SPA rewrite (doğrudan alt rotalara erişim)
-├── package.json          # Proje bağımlılıkları ve komutlar
-└── README.md
+ders2/
+├── backend/                      # Sprint 7: Express REST API
+│   ├── requests/
+│   │   └── kampus-api.json       # Postman koleksiyonu (6 senaryo)
+│   ├── src/
+│   │   ├── controllers/
+│   │   │   └── event-controller.js  # İş mantığı, doğrulama ve yanıtlar
+│   │   ├── data/
+│   │   │   └── events.js            # 6 adet özgün etkinlik verisi
+│   │   ├── routes/
+│   │   │   └── event-routes.js      # Endpoint yönlendirmeleri
+│   │   ├── app.js                   # Express yapılandırması & middleware'ler
+│   │   └── server.js                # Port dinleme ve dotenv yüklemesi
+│   ├── .env                      # Ortam değişkenleri (Git'e kapalı)
+│   ├── .env.example              # Örnek ortam değişkeni şablonu
+│   ├── .gitignore                # node_modules ve .env koruması
+│   ├── package.json              # Backend bağımlılıkları ve script'ler
+│   └── README.md                 # Backend özel dokümantasyonu
+├── frontend/                     # Sprint 6: React + TS + Vite SPA
+│   ├── src/
+│   │   ├── components/           # UI ve form bileşenleri
+│   │   ├── context/              # EventsContext durum yönetimi
+│   │   ├── pages/                # 10 sayfa bileşeni (Home, Events, Admin vb.)
+│   │   └── types/                # campus-event TypeScript tipleri
+│   ├── package.json
+│   └── vite.config.ts
+├── .gitignore                    # Kök seviye yok sayılanlar
+└── README.md                     # Ana proje dokümantasyonu
 ```
 
 ---
 
-## ✅ Vize Teslim Checklist & Puanlama (45/45 Puan)
+## ✅ Sprint 7 Tamamlanma Checklist'i
 
-- [x] **1. Tüm linkler çalışıyor (1 Puan):** `NavLink` ve `Link` ile tüm menü ve sayfa içi geçişler hatasız çalışır.
-- [x] **2. Tüm sayfalar hazır (2 Puan):** 10 sayfanın tümü eksiksiz tasarlanmış ve içerikleri doldurulmuştur.
-- [x] **3. Klasör ve dosya yapısı (3 Puan):** Slayt 21'deki tam mimari korunmuştur.
-- [x] **4. Tüm route'lar (10 adet) tanımlandı (6 Puan):** 10 rota `App.tsx` içinde yapılandırılmıştır.
-- [x] **5. Context kullanımı (7 Puan):** `EventsContext` üzerinden tüm sayfalarda ortak durum yönetimi sağlanmıştır.
-- [x] **6. Ekle, sil, güncelle ve onay (10 Puan):** İşlemler `window.confirm` ile onaylıdır; değişiklikler tüm sayfalarda anında görünür.
-- [x] **7. Son çalışır proje GitHub'da (2 Puan):** `git tag frontend` ile GitHub'a push edilmiştir.
-- [x] **8. Vercel'de yayında (2 Puan):** Vercel üzerinde canlıda ve SPA yönlendirmeleri aktiftir.
-- [x] **9. README yazıldı, Vercel linki eklendi (2 Puan):** Tüm bilgiler eksiksiz dökümante edilmiştir.
-- [x] **10. Mobil görünüm (2 Puan):** Masaüstünde tablo olan yönetim ekranı telefonda kart formatına geçer.
-- [x] **11. CSS bozulması yok (2 Puan):** Tasarım sistemi ve responsive düzen kusursuzdur.
-- [x] **12. Arama ve filtreleme (3 Puan):** Canlı arama ve kategori süzme mekanizması çalışır.
-- [x] **13. Form doğrulama (3 Puan):** Etkinlik formu, giriş, kayıt ve şifremi unuttum ekranlarında eksiksiz doğrulama mevcuttur.
+- [x] **Adım 0-1:** Backend klasörü oluşturuldu, `package.json` (`type: module`), `.env` ve `.env.example` hazırlandı.
+- [x] **Adım 2-3:** Express kuruldu, `cors` ve `express.json()` middleware'leri bağlandı.
+- [x] **Adım 4:** `GET /health` endpoint'i yazıldı (`status: ok`, `time`, `student: 2311012038`).
+- [x] **Adım 5:** Genel `404 Route not found` hata yakalayıcısı eklendi.
+- [x] **Adım 6:** `src/data/events.js` içerisine 6 adet özgün etkinlik verisi eklendi.
+- [x] **Adım 7:** Router ve Controller mimarisi ayrıştırıldı (`event-routes.js`, `event-controller.js`).
+- [x] **Adım 8:** `GET /events` ve `GET /events/:id` rotaları (kategori filtresi ve 404 kontrolü ile) yazıldı.
+- [x] **Adım 9:** `POST /events` rotası ve zorunlu alan doğrulama (`400 Bad Request`) tamamlandı.
+- [x] **Adım 10:** Postman koleksiyonu (`kampus-api.json`) hazırlandı ve `backend/README.md` dokümante edildi.
+- [x] **Ek İyileştirme:** `GET /` kök rotası eklenerek tarayıcıdan doğrudan erişimde açıklayıcı rehber sağlandı.
+- [x] **Güvenlik:** `.env` ve `node_modules` dizinleri `.gitignore` ile güvenceye alındı, Git'e sızması engellendi.
