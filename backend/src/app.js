@@ -7,6 +7,17 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // body -> req.body
 
+// GET /
+app.get("/", (req, res) => {
+  res.json({
+    message: "Kampüs Etkinlik API Aktif",
+    endpoints: {
+      health: "/health",
+      events: "/events"
+    }
+  });
+});
+
 // GET /health
 app.get("/health", (req, res) => {
   res.json({
