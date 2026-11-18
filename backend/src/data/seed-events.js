@@ -1,6 +1,5 @@
-export const events = [
+export const seedEvents = [
   {
-    id: "event-1",
     title: "Yazılım Kariyer ve Staj Zirvesi 2026",
     category: "Seminer",
     capacity: 120,
@@ -10,7 +9,6 @@ export const events = [
     description: "Sektör lideri teknoloji firmalarıyla staj ve kariyer olanakları söyleşisi."
   },
   {
-    id: "event-2",
     title: "Yapay Zeka ve LLM Atölyesi",
     category: "Atölye",
     capacity: 25,
@@ -20,7 +18,6 @@ export const events = [
     description: "Node.js ve modern yapay zeka modelleriyle pratik uygulama geliştirme atölyesi."
   },
   {
-    id: "event-3",
     title: "Modern Web Güvenliği ve Savunma",
     category: "Söyleşi",
     capacity: 60,
@@ -30,7 +27,6 @@ export const events = [
     description: "Web uygulamalarında yaygın güvenlik açıkları ve siber güvenlik kariyeri."
   },
   {
-    id: "event-4",
     title: "Bulut Bilişim ve Docker Eğitimi",
     category: "Atölye",
     capacity: 35,
@@ -40,7 +36,6 @@ export const events = [
     description: "Container mimarisi, Dockerfile hazırlama ve dağıtım süreçleri."
   },
   {
-    id: "event-5",
     title: "Teknoloji Girişimciliği ve Start-up Ekosistemi",
     category: "Söyleşi",
     capacity: 80,
@@ -50,7 +45,6 @@ export const events = [
     description: "Başarılı start-up kurucularıyla fikir aşamasından yatırıma girişimcilik sohbeti."
   },
   {
-    id: "event-6",
     title: "Veri Bilimi ve Geleceğin Teknolojileri",
     category: "Seminer",
     capacity: 100,

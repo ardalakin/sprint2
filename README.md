@@ -1,5 +1,7 @@
-# 🎓 Kampüs Etkinlikleri — Full-Stack (Sprint 7)
+# 🎓 Kampüs Etkinlikleri — Full-Stack (Sprint 8: MongoDB & Mongoose)
 
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)
+![Mongoose](https://img.shields.io/badge/Mongoose-v8%2Fv9-880000?logo=mongoose&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.21-000000?logo=express&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-v2.1-FF6C37?logo=postman&logoColor=white)
@@ -9,7 +11,7 @@
 ![React Router](https://img.shields.io/badge/React_Router-7-CA4245?logo=react-router&logoColor=white)
 ![Build](https://img.shields.io/badge/Build-Passing-success)
 
-Bu depo, **Kampüs Etkinlikleri Yönetim Sistemi**'nin hem modern React (SPA) frontend arayüzünü hem de **Sprint 7** kapsamında geliştirilen **Node.js + Express tabanlı REST API backend** mimarisini bir arada barındıran tam yığın (full-stack) projesidir.
+Bu depo, **Kampüs Etkinlikleri Yönetim Sistemi**'nin modern React (SPA) frontend arayüzü ile birlikte **Sprint 8** kapsamında geliştirilen **Node.js + Express + MongoDB (Mongoose)** tabanlı bulut veritabanı entegrasyonuna sahip tam yığın (full-stack) projesidir.
 
 ---
 
@@ -19,25 +21,29 @@ Bu depo, **Kampüs Etkinlikleri Yönetim Sistemi**'nin hem modern React (SPA) fr
 | :--- | :--- |
 | **Öğrenci Adı Soyadı** | **Erol Arda Akın** |
 | **Öğrenci Numarası** | **2311012038** |
-| **Sprint** | **Sprint 7 — Backend REST API & Mimari Kurulumu** |
+| **Sprint** | **Sprint 8 — MongoDB & Mongoose Entegrasyonu** |
 | **Canlı Vercel Adresi** | [https://erolardaakin-frontend.vercel.app/](https://erolardaakin-frontend.vercel.app/) |
 | **GitHub Deposu** | [https://github.com/ardalakin/sprint2](https://github.com/ardalakin/sprint2) |
 | **Backend API URL** | `http://localhost:3000` |
 
 ---
 
-## 🚀 Sprint 7: Backend REST API Özellikleri
+## 🚀 Sprint 8: Veritabanı ve Mongoose Özellikleri
 
-- **⚡ Modern ES Modülleri (ESM):** `package.json` içerisinde `"type": "module"` kullanılarak modern `import / export` standardıyla geliştirilmiştir.
-- **🧱 Katmanlı Mimari (Separation of Concerns):** Rotalar ([`src/routes/`](backend/src/routes/event-routes.js)), iş mantığı ([`src/controllers/`](backend/src/controllers/event-controller.js)) ve veri modeli ([`src/data/`](backend/src/data/events.js)) birbirinden tamamen ayrıştırılmıştır.
-- **🛡️ Güvenlik ve Ortam Değişkenleri:** Port yapılandırması `dotenv` ile `.env` dosyasından okunur; `.env.example` hazır tutulurken `.gitignore` ile gizli değişkenlerin Git'e sızması önlenmiştir.
-- **🌐 Evrensel Middleware Desteği:** 
-  - `cors()`: Frontend ve harici istemcilerden gelen çapraz kaynak isteklerini güvenle karşılar.
-  - `express.json()`: Gelen JSON istek gövdelerini (`req.body`) otomatik olarak ayrıştırır.
-- **🩺 Sağlık Kontrolü (`/health`):** Sunucu çalışma durumunu, güncel ISO zaman bilgisini ve öğrenci numarasını döndürür.
-- **💾 Bellek İçi (In-Memory) Veri Saklama:** 6 adet özgün etkinlik verisi bellek içi dizi üzerinde saklanır, filtrelenebilir, ID ile aranabilir ve yeni kayıt eklenebilir.
-- **📑 Standart Hata Yanıt Formatı:** Beklenmeyen rotalarda `404` ("Route not found"), eksik parametrelerde `400` ("title, category and date are required") ve bulunamayan kayıtlarda `404` ("Event not found") tutarlı bir JSON şeması ile iletilir.
-- **🧪 Kapsamlı Postman Test Koleksiyonu:** 6 temel test senaryosunu içeren Postman v2.1 koleksiyonu ([`backend/requests/kampus-api.json`](backend/requests/kampus-api.json)) mevcuttur.
+- **🗄️ MongoDB Atlas Entegrasyonu:** Veriler RAM belleğinden bulut MongoDB veritabanına taşınmıştır. Sunucu kapansa veya yeniden başlasa dahi eklenen kayıtlar kalıcı (persistent) olarak saklanır.
+- **🧱 Bağlantı Modülü (`src/config/database.js`):** `connectDatabase()` fonksiyonu sunucu ayağa kalkmadan önce veritabanı bağlantısını kurar. URI `process.env.MONGODB_URI` üzerinden okunur.
+- **📜 Şema ve Model (`src/models/event-model.js`):**
+  - `title`: `required`, `trim`, `minlength: 3`, `maxlength: 100`
+  - `category`: `required`, `enum: ["Seminer", "Atölye", "Söyleşi", "Yarışma"]`
+  - `capacity`: `min: 0`, `default: 0`
+  - `date`: `required`
+  - `timestamps: true`: `createdAt` ve `updatedAt` otomatik üretilir.
+- **🌱 Örnek Veri Yükleme (Seed Script):** `npm run seed` komutu `deleteMany({})` ile veritabanını temizleyip 6 adet özgün etkinliği yükler; iki kez çalıştırılsa bile kopya üretmez.
+- **🛡️ Sağlam Hata Yönetimi:**
+  - `isValidObjectId`: Geçersiz ID isteklerinde (`/events/yok`) 500 fırlatmak yerine doğrudan **404 Not Found** döner.
+  - Mongoose `ValidationError`: Eksik veya kural dışı verilerde **400 Bad Request** döner ve sunucu asla çökmez.
+  - Genel hata yakalayıcı: Express `(err, req, res, next)` middleware'i ile beklenmeyen hatalar terminalde loglanır, istemciye `500 Server error` döner.
+- **🔒 Güvenlik Standartları:** Gerçek bağlantı adresi ve şifre sadece `.env` dosyasında tutulur ve `.gitignore` ile korunur. `.env.example` içinde yer tutucu kullanılır.
 
 ---
 
@@ -46,12 +52,12 @@ Bu depo, **Kampüs Etkinlikleri Yönetim Sistemi**'nin hem modern React (SPA) fr
 | Metot | Uç Nokta (Endpoint) | Amaç | Başarılı Yanıt | Hata Yanıtı | Durum |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **GET** | `/` | API karşılama ve uç nokta rehberi | `200 OK` | — | Aktif |
-| **GET** | `/health` | Sağlık kontrolü ve öğrenci numarası | `200 OK` | — | Sprint 7 |
-| **GET** | `/events` | Etkinlik listesi (`?category=` ile süzme) | `200 OK` | — | Sprint 7 |
-| **GET** | `/events/:id` | Tekil etkinlik detayı getirme | `200 OK` | `404 Not Found` | Sprint 7 |
-| **POST** | `/events` | Yeni etkinlik oluşturma (`title`, `category`, `date`) | `201 Created` | `400 Bad Request` | Sprint 7 |
-| **PATCH** | `/events/:id` | Etkinlik bilgilerini kısmi güncelleme | `200 OK` | `400`, `404` | Sprint 9 |
-| **DELETE** | `/events/:id` | Etkinliği listeden silme | `204 No Content` | `404 Not Found` | Sprint 9 |
+| **GET** | `/health` | Sağlık kontrolü ve öğrenci numarası | `200 OK` | — | Tamamlandı |
+| **GET** | `/events` | Etkinlik listesi (`?category=` ile filtreleme) | `200 OK` | `500` | Sprint 8 (MongoDB) |
+| **GET** | `/events/:id` | Tekil etkinlik detayı getirme | `200 OK` | `404 Not Found` | Sprint 8 (MongoDB) |
+| **POST** | `/events` | Yeni etkinlik oluşturma | `201 Created` | `400 Bad Request` | Sprint 8 (MongoDB) |
+| **PATCH** | `/events/:id` | Etkinlik bilgilerini güncelleme | `200 OK` | `400`, `404` | Aktif |
+| **DELETE** | `/events/:id` | Etkinliği listeden silme | `204 No Content` | `404 Not Found` | Aktif |
 
 ---
 
@@ -67,9 +73,9 @@ Tüm hata durumlarında API tutarlı olarak aşağıdaki JSON gövdesini döner:
 }
 ```
 
-* **Olmayan Rota:** `404 Not Found` $\rightarrow$ `{"error": {"message": "Route not found"}}`
-* **Bulunamayan Etkinlik:** `404 Not Found` $\rightarrow$ `{"error": {"message": "Event not found"}}`
-* **Eksik Alan:** `400 Bad Request` $\rightarrow$ `{"error": {"message": "title, category and date are required"}}`
+* **Bulunamayan Etkinlik / Geçersiz ID:** `404 Not Found` $\rightarrow$ `{"error": {"message": "Event not found"}}`
+* **Doğrulama Hatası:** `400 Bad Request` $\rightarrow$ `{"error": {"message": "Event validation failed: ..."}}`
+* **Beklenmeyen Sunucu Hatası:** `500 Server error` $\rightarrow$ `{"error": {"message": "Server error"}}`
 
 ---
 
@@ -81,17 +87,17 @@ Tüm hata durumlarında API tutarlı olarak aşağıdaki JSON gövdesini döner:
 # Backend dizinine geçin
 cd backend
 
-# Bağımlılıkları yükleyin (express, cors, dotenv)
+# Bağımlılıkları yükleyin (express, cors, dotenv, mongoose)
 npm install
 
-# .env dosyasını oluşturun (varsayılan PORT=3000)
+# .env dosyasını oluşturun
 cp .env.example .env
+
+# Veritabanını 6 örnek etkinlikle doldurun
+npm run seed
 
 # Geliştirme modunda (watch mode) başlatın
 npm run dev
-
-# Veya standart modda başlatın
-npm start
 ```
 > Sunucu varsayılan olarak `http://localhost:3000` adresinde ayağa kalkar.
 
@@ -117,60 +123,56 @@ API testleri için hazırlanmış koleksiyon dosyası: [`backend/requests/kampus
 
 | No | İstek Adı | Metot | URL | Beklenen Durum |
 | :--- | :--- | :--- | :--- | :--- |
-| **1** | Health Kontrolü | `GET` | `http://localhost:3000/health` | `200 OK` |
-| **2** | Etkinlik Listesi | `GET` | `http://localhost:3000/events` | `200 OK` (6 kayıt) |
-| **3** | Tek Etkinlik Getir | `GET` | `http://localhost:3000/events/event-2` | `200 OK` |
-| **4** | Olmayan Etkinlik | `GET` | `http://localhost:3000/events/yok` | `404 Not Found` |
-| **5** | Etkinlik Oluştur | `POST` | `http://localhost:3000/events` | `201 Created` |
-| **6** | Eksik Veri Doğrulama | `POST` | `http://localhost:3000/events` | `400 Bad Request` |
+| **1** | Health Kontrolü | `GET` | `http://localhost:3000/health` | `200 OK` (`student: 2311012038`) |
+| **2** | Etkinlik Listesi | `GET` | `http://localhost:3000/events` | `200 OK` (MongoDB'den 6 kayıt) |
+| **3** | Tek Etkinlik Getir | `GET` | `http://localhost:3000/events/<_id>` | `200 OK` (Gerçek MongoDB `_id`) |
+| **4** | Olmayan Etkinlik | `GET` | `http://localhost:3000/events/yok` | `404 Not Found` (500 değil 404) |
+| **5** | Etkinlik Oluştur | `POST` | `http://localhost:3000/events` | `201 Created` (`_id` üretilir) |
+| **6** | Eksik Veri Doğrulama | `POST` | `http://localhost:3000/events` | `400 Bad Request` (Mongoose validation) |
 
 ---
 
-## 📁 Proje Klasör Yapısı
+## 📁 Proje Klasör Yapısı (Sprint 8 Şablonu)
 
 ```text
-ders2/
-├── backend/                      # Sprint 7: Express REST API
+kampus-etkinlik/
+├── backend/
 │   ├── requests/
-│   │   └── kampus-api.json       # Postman koleksiyonu (6 senaryo)
+│   │   └── kampus-api.json          # 6 adet test isteği içeren Postman koleksiyonu
 │   ├── src/
+│   │   ├── config/
+│   │   │   └── database.js          # Mongoose bağlantı modülü
 │   │   ├── controllers/
-│   │   │   └── event-controller.js  # İş mantığı, doğrulama ve yanıtlar
+│   │   │   └── event-controller.js  # Mongoose model işlemleri & hata kontrolleri
 │   │   ├── data/
-│   │   │   └── events.js            # 6 adet özgün etkinlik verisi
+│   │   │   └── seed-events.js       # 6 adet id'siz başlangıç etkinliği
+│   │   ├── models/
+│   │   │   └── event-model.js       # Mongoose Schema & Event modeli
 │   │   ├── routes/
-│   │   │   └── event-routes.js      # Endpoint yönlendirmeleri
-│   │   ├── app.js                   # Express yapılandırması & middleware'ler
-│   │   └── server.js                # Port dinleme ve dotenv yüklemesi
-│   ├── .env                      # Ortam değişkenleri (Git'e kapalı)
-│   ├── .env.example              # Örnek ortam değişkeni şablonu
-│   ├── .gitignore                # node_modules ve .env koruması
-│   ├── package.json              # Backend bağımlılıkları ve script'ler
-│   └── README.md                 # Backend özel dokümantasyonu
-├── frontend/                     # Sprint 6: React + TS + Vite SPA
-│   ├── src/
-│   │   ├── components/           # UI ve form bileşenleri
-│   │   ├── context/              # EventsContext durum yönetimi
-│   │   ├── pages/                # 10 sayfa bileşeni (Home, Events, Admin vb.)
-│   │   └── types/                # campus-event TypeScript tipleri
-│   ├── package.json
-│   └── vite.config.ts
-├── .gitignore                    # Kök seviye yok sayılanlar
-└── README.md                     # Ana proje dokümantasyonu
+│   │   │   └── event-routes.js      # REST API rotaları
+│   │   ├── app.js                   # Express yapılandırması & hata middleware'i
+│   │   ├── seed.js                  # deleteMany + insertMany seed scripti
+│   │   └── server.js                # Önce connectDatabase, sonra app.listen
+│   ├── .env                         # Yerel MongoDB URI (Git'e kapalı)
+│   ├── .env.example                 # mongodb://127.0.0.1:27017/kampus yer tutucu
+│   ├── .gitignore                   # node_modules ve .env koruması
+│   ├── package.json                 # mongoose ve "seed" scripti
+│   └── README.md                    # Backend özel dokümantasyonu
+├── frontend/                        # React + TS + Vite SPA (değişmedi)
+└── README.md                        # Ana proje dokümantasyonu
 ```
 
 ---
 
-## ✅ Sprint 7 Tamamlanma Checklist'i
+## ✅ Sprint 8 Puanlama & Kontrol Listesi (12 / 12 Puan)
 
-- [x] **Adım 0-1:** Backend klasörü oluşturuldu, `package.json` (`type: module`), `.env` ve `.env.example` hazırlandı.
-- [x] **Adım 2-3:** Express kuruldu, `cors` ve `express.json()` middleware'leri bağlandı.
-- [x] **Adım 4:** `GET /health` endpoint'i yazıldı (`status: ok`, `time`, `student: 2311012038`).
-- [x] **Adım 5:** Genel `404 Route not found` hata yakalayıcısı eklendi.
-- [x] **Adım 6:** `src/data/events.js` içerisine 6 adet özgün etkinlik verisi eklendi.
-- [x] **Adım 7:** Router ve Controller mimarisi ayrıştırıldı (`event-routes.js`, `event-controller.js`).
-- [x] **Adım 8:** `GET /events` ve `GET /events/:id` rotaları (kategori filtresi ve 404 kontrolü ile) yazıldı.
-- [x] **Adım 9:** `POST /events` rotası ve zorunlu alan doğrulama (`400 Bad Request`) tamamlandı.
-- [x] **Adım 10:** Postman koleksiyonu (`kampus-api.json`) hazırlandı ve `backend/README.md` dokümante edildi.
-- [x] **Ek İyileştirme:** `GET /` kök rotası eklenerek tarayıcıdan doğrudan erişimde açıklayıcı rehber sağlandı.
-- [x] **Güvenlik:** `.env` ve `node_modules` dizinleri `.gitignore` ile güvenceye alındı, Git'e sızması engellendi.
+- [x] **Ön Şart 1:** `GET /health` JSON yanıtında `student = 2311012038`.
+- [x] **Ön Şart 2:** Git geçmişinde ve repoda asla gerçek Atlas adresi veya şifresi yok.
+- [x] **Ön Şart 3:** `.env` ve `node_modules` dizinleri `.gitignore` ile korunuyor, repoya sızmıyor.
+- [x] **1. Madde (2 Puan):** Temiz indirmede `npm install + npm run dev` hatasız çalışıyor.
+- [x] **2. Madde (1 Puan):** Bağlantı `config/database.js`'te, URI `.env`'den okunuyor, `.env.example` içinde yer tutucu var.
+- [x] **3. Madde (2 Puan):** Schema kuralları (`required`, `trim`, `timestamps`, `enum`, `minlength`) tanımlı.
+- [x] **4. Madde (2 Puan):** `npm run seed` 6 kayıt ekliyor; art arda çalışsa da `deleteMany` sayesinde 6 kayıt kalıyor.
+- [x] **5. Madde (2 Puan):** `GET /events` ve `GET /events/:id` MongoDB'den çekiyor; `/events/yok` 500 değil **404** dönüyor.
+- [x] **6. Madde (2 Puan):** `POST /events` 201 dönüyor; eksik veride `ValidationError` yakalanıp **400** dönüyor, sunucu çökmüyor.
+- [x] **7. Madde (1 Puan):** Kalıcılık testi: Sunucu yeniden başlayınca eklenen kayıt MongoDB'de kalıyor.
